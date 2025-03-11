@@ -1,0 +1,4 @@
+<Files "send-email.php">
+  Order Allow,Deny
+  Deny from all
+</Files>
