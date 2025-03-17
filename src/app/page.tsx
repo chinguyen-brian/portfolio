@@ -29,11 +29,18 @@ import Link from "next/link";
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailHelperText, setEmailHelperText] = useState("");
+
+  const [nameError, setNameError] = useState(false);
+  const [nameHelperText, setNameHelperText] = useState("");
+
+  const [messageError, setMessageError] = useState(false);
+  const [messageHelperText, setMessageHelperText] = useState("");
+
   const [responseMessage, setResponseMessage] = useState("");
 
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -42,20 +49,89 @@ export default function Portfolio() {
     setActiveIndex(activeIndex === index ? -1 : index);
   };
 
+  function debounce<TArgs extends unknown[], TFunc extends (...args: TArgs) => void>(
+    func: TFunc,
+    delay: number
+  ): (...args: TArgs) => void {
+    let timer: ReturnType<typeof setTimeout>;
+    return function (this: ThisParameterType<TFunc>, ...args: TArgs) {
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    switch(e.target.name){
+      case "name":
+        debouncedValidateName(e.target.value);
+        setName(e.target.value);
+        break;
+      case "message":
+        debouncedValidateMessage(e.target.value);
+        setMessage(e.target.value);
+        break;
+      case "email":
+        debouncedValidateEmail(e.target.value);
+        setEmail(e.target.value);
+      default:
+        break;
+    }
   };
+
+  const validateEmail = (value: string) : void => {
+    if (!value) {
+      setEmailError(true);
+      setEmailHelperText("Please enter your email address");
+      return;
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(value)) {
+      setEmailError(true);
+      setEmailHelperText("Invalid email address!");
+    } else {
+      setEmailError(false);
+      setEmailHelperText("");
+    }
+  };
+
+  const validateName = (value: string): void => {
+    if(!value){
+      setNameError(true);
+      setNameHelperText("Please enter your name")
+    }else{
+      setNameError(false);
+      setNameHelperText("")
+    }
+  }
+
+  const validateMessage = (value: string): void => {
+    if(!value){
+      setMessageError(true);
+      setMessageHelperText("Please enter your message")
+    }else{
+      setMessageError(false);
+      setMessageHelperText("")
+    }
+  }
+
+  const debouncedValidateMessage = debounce<string[], (message: string) => void>(validateMessage, 300)
+
+  const debouncedValidateName = debounce<string[], (message: string) => void>(validateName, 300)
+
+  const debouncedValidateEmail = debounce<string[], (message: string) => void>(validateEmail, 300);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setResponseMessage("");
-
+   if(!emailError && !name && !email && message)
+   {
     const data = new FormData();
 
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("message", formData.message);
+    data.append("name", name);
+    data.append("email", email);
+    data.append("message", message);
 
     try {
       const response = await fetch("/api/contact.php", {
@@ -67,8 +143,13 @@ export default function Portfolio() {
       setResponseMessage(result);
     } catch {
       setResponseMessage("Something wrong, please try again.");
-    }
-
+    }  
+   }else{
+    setResponseMessage("Please enter fields correctly.");
+    setTimeout(()=> {
+      setResponseMessage("");
+    },3000)
+   }
     setLoading(false);
   };
 
@@ -163,7 +244,7 @@ export default function Portfolio() {
                   Chi Nguyen - Brian
                 </Typography>
                 <Typography variant="h5">Website Developer</Typography>
-                <Link href="/cv.html" passHref>
+                <Link href="/cv" passHref>
                   <Button
                     variant="contained"
                     sx={{
@@ -234,7 +315,7 @@ export default function Portfolio() {
                 Looking for a professional and well-optimized website? Let’s
                 connect!
               </Typography>
-              <Link href="/cv.html" passHref>
+              <Link href="/cv" passHref>
                 <Button
                   variant="outlined"
                   sx={{
@@ -540,7 +621,7 @@ export default function Portfolio() {
                       {blog.content}...
                     </Typography>
                     <a
-                      href={"/blog/" + blog.url + ".html"}
+                      href={"/blog/" + blog.url}
                       style={{ display: "block", marginTop: 5 }}
                     >
                       <Typography variant="caption" color="primary">
@@ -587,45 +668,41 @@ export default function Portfolio() {
               <Container maxWidth="sm" sx={{ textAlign: "center" }}>
                 <form onSubmit={handleSubmit}>
                   <TextField
-                    label="Your Name"
+                    label="Your Name *"
                     variant="outlined"
                     fullWidth
                     sx={{
                       mt: 3,
                       "& .MuiOutlinedInput-root": {
-                        "&:hover fieldset": { borderColor: "#7f4ed5" },
-                        "&.Mui-focused fieldset": { borderColor: "#7f4ed5" },
-                        "& .MuiInputLabel-root": {
-                          "&.Mui-focused": { color: "#7f4ed5" },
-                        },
+                        "&:hover fieldset": { borderColor: nameError ? "red" : "#7f4ed5" },
+                        "&.Mui-focused fieldset": { borderColor: nameError ? "red" : "#7f4ed5" },
                       },
                     }}
                     name="name"
-                    value={formData.name}
+                    value={name}
                     onChange={handleChange}
-                    required
+                    error={nameError}
+                    helperText={nameHelperText}
                   />
                   <TextField
-                    label="Your Email"
+                    label="Your Email *"
                     variant="outlined"
                     fullWidth
                     sx={{
                       mt: 3,
                       "& .MuiOutlinedInput-root": {
-                        "&:hover fieldset": { borderColor: "#7f4ed5" },
-                        "&.Mui-focused fieldset": { borderColor: "#7f4ed5" },
-                        "& .MuiInputLabel-root": {
-                          "&.Mui-focused": { color: "#7f4ed5" },
-                        },
+                        "&:hover fieldset": { borderColor: emailError ? "red" : "#7f4ed5" },
+                        "&.Mui-focused fieldset": { borderColor: emailError ? "red" : "#7f4ed5" },
                       },
                     }}
                     name="email"
-                    value={formData.email}
+                    value={email}
                     onChange={handleChange}
-                    required
+                    error={emailError}
+                    helperText={emailHelperText}
                   />
                   <TextField
-                    label="Message"
+                    label="Message *"
                     variant="outlined"
                     multiline
                     rows={4}
@@ -633,14 +710,15 @@ export default function Portfolio() {
                     sx={{
                       mt: 3,
                       "& .MuiOutlinedInput-root": {
-                        "&:hover fieldset": { borderColor: "#7f4ed5" },
-                        "&.Mui-focused fieldset": { borderColor: "#7f4ed5" },
+                        "&:hover fieldset": { borderColor: messageError ? "red" : "#7f4ed5" },
+                        "&.Mui-focused fieldset": { borderColor: messageError ? "red" : "#7f4ed5" },
                       },
                     }}
                     name="message"
-                    value={formData.message}
+                    value={message}
                     onChange={handleChange}
-                    required
+                    error={messageError}
+                    helperText={messageHelperText}
                   />
                   <Button
                     variant="outlined"
@@ -655,7 +733,7 @@ export default function Portfolio() {
                       "&:hover": { backgroundColor: "#7f4ed5", color: "white" },
                     }}
                     type="submit"
-                    disabled={loading}
+                    disabled={!(!loading && name && message && email && !emailError)}
                   >
                     {loading ? <CircularProgress size={24} /> : "Send Message"}
                   </Button>

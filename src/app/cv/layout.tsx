@@ -2,15 +2,23 @@ import { AppBar, Box, Breadcrumbs, Container, Link, Toolbar, Typography } from "
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Brian Nguyen Blog - Website Develop Knowledges",
+  title: "My CV - Web Developer | Brian Code",
   description:
-    "A blog sharing web development insights, tutorials, and best practices on React, Node.js, and modern frameworks.",
+    "Explore my CV to learn more about my skills, experience, and projects as a Web Developer specializing in React and Node.js.",
   openGraph: {
-    url: "briancode.dev/blog",
-    title: "Brian Nguyen Blog - Website Develop Knowledges",
+    url: "briancode.dev/cv",
+    title: "My CV - Web Developer | Brian Code",
     description:
-      "Portfolio of a web developer showcasing projects, skills, and expertise in React, Node.js, and modern web technologies.",
-    images: "",
+      "Explore my CV to learn more about my skills, experience, and projects as a Web Developer specializing in React and Node.js.",
+    images: [
+      {
+        url: 'https://briancode.dev/images/home/bc.png',
+        width: 700,
+        height: 450,
+        alt: 'BrianCode',
+      },
+    ],
+    type:'website',
   },
 };
 

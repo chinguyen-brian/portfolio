@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "How a Slow Website Can Cost You Customers - Brian Nguyen Blog",
+  title: "How a Slow Website Can Cost You Customers | Brian Code",
   description:
     "A slow website frustrates visitors, lowers search rankings, and reduces conversions. Learn how speed impacts your business and how to fix it.",
   openGraph: {
@@ -12,7 +12,15 @@ export const metadata: Metadata = {
     title: "How a Slow Website Can Cost You Customers - Brian Nguyen Blog",
     description:
       "A slow website frustrates visitors, lowers search rankings, and reduces conversions. Learn how speed impacts your business and how to fix it.",
-    images: "https://briancode.dev/images/blogs/losscustomer.png",
+      images: [
+        {
+          url: 'https://briancode.dev/images/blogs/losscustomer.png',
+          width: 1200,
+          height: 600,
+          alt: 'How a Slow Website Can Cost You Customers',
+        },
+      ],
+      type:'website',
   },
 };
 

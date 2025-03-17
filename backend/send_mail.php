@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $mailcontact->setFrom(SMTP_USER, "BrianCode Hello");
         $mailcontact->addAddress(SMTP_USER); // Email nhận liên hệ
+        $mailcontact->addAddress("nguyennc1303@gmail.com");
         $mailcontact->Subject = "Customer Form Submission";
         $mailcontact->Body = "Name: $name\nEmail: $email\nMessage:\n$message";
 
@@ -52,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mailuser->setFrom(SMTP_USER, "BrianCode Hello");
         $mailuser->addAddress($email); // Email nhận liên hệ
         $mailuser->Subject = "Thank you for reaching out to BrianCode.dev!";
-        $mailuser->Body = "Hi $name,\n\nThank you for reaching out! I have received your message and will get back to you within 12 hours.\n\nIf this is an urgent request, please mention \"Urgent\" in the subject line, and I’ll prioritize your email.\n\nIn the meantime, feel free to check out my work at https://briancode.dev. \n\nLooking forward to connecting with you!\n\nBest regards,\nBrian Nguyen\nFreelance Web Developer\nbriancode.dev";
+        $mailuser->Body = "Hi $name,\n\nThank you for reaching out! I have received your message and will get back to you within 12 hours.\n\nIf this is an urgent request, please mention \"Urgent\" in the subject line, and I'll prioritize your email.\n\nIn the meantime, feel free to check out my work at https://briancode.dev. \n\nLooking forward to connecting with you!\n\nBest regards,\nBrian Nguyen\nFreelance Web Developer\nbriancode.dev";
 
         $mailuser->send();
         

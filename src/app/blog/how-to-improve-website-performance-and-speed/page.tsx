@@ -4,15 +4,23 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "How to Improve Website Performance and Speed - Brian Nguyen Blog",
+  title: "How to Improve Website Performance and Speed | Brian Code",
   description:
     "Learn effective techniques to improve website performance and speed, including optimization tips for faster loading times and better user experience.",
   openGraph: {
     url: "https://briancode.dev/blog/how-to-improve-website-performance-and-speed",
-    title: "How to Improve Website Performance and Speed - Brian Nguyen Blog",
+    title: "How to Improve Website Performance and Speed | Brian Code",
     description:
       "Learn effective techniques to improve website performance and speed, including optimization tips for faster loading times and better user experience.",
-    images: "https://briancode.dev/images/blogs/webspeed.jpg",
+    images: [
+      {
+        url: 'https://briancode.dev/images/blogs/webspeed.jpg',
+        width: 1200,
+        height: 600,
+        alt: 'How to Improve Website Performance and Speed',
+      },
+    ],
+    type:'website',
   },
 };
 

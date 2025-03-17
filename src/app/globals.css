@@ -31,6 +31,10 @@ a {
   text-decoration: none;
 }
 
-.Mui-focused{
+label.Mui-focused{
+  color: #7f4ed5 !important;
+}
+
+label.Mui-focused > span{
   color: #7f4ed5 !important;
 }

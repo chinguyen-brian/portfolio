@@ -1,22 +1,7 @@
 import ModalComponent from "@/components/modal";
 import { Download } from "@mui/icons-material";
 import { Button, Container,  Paper } from "@mui/material";
-import { Metadata } from "next";
 import Image from "next/image";
-
-export const metadata: Metadata = {
-    title: "Chi Nguyen CV - BrianCode",
-    description:
-      "Chi Nguyen - Website Developer - Curriculum Vitae",
-    openGraph: {
-      url: "https://briancode.dev/cv",
-      title: "Chi Nguyen CV - BrianCode",
-      description:
-        "Chi Nguyen - Website Developer - Curriculum Vitae",
-      images: "https://briancode.dev/images/home/bc.png"
-    },
-  };
-
 
   export default function CVViewer() {
     return (

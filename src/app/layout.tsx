@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Head from "next/head";
 import Footer from "@/components/footer";
 import { Baloo_Paaji_2 } from "next/font/google";
 import LayoutProvider from "@/components/themeProvider";
@@ -10,31 +9,19 @@ const baloo = Baloo_Paaji_2({
   variable: "--font-baloo"
 })
 
-export const metadata: Metadata = {
-  title: "Brian Nguyen - Website Developer",
-  description:
-    "Portfolio of a web developer showcasing projects, skills, and expertise in React, Node.js, and modern web technologies.",
-  openGraph: {
-    url: "https://briancode.dev",
-    title: "Brian Nguyen - Website Developer",
-    description:
-      "Portfolio of a web developer showcasing projects, skills, and expertise in React, Node.js, and modern web technologies.",
-    images: "https://briancode.dev/images/home/bc.png",
-  },
-};
-
 const jsonld = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Brian Nguyen",
   jobTitle: "Freelance Web Developer",
   url: "https://briancode.dev",
-  image: "https://briancode.dev/images/home/bc.jpg",
-  // "sameAs": [
-  //   "https://github.com/yourusername",
-  //   "https://linkedin.com/in/yourusername",
-  //   "https://twitter.com/yourusername"
-  // ],
+  image: "https://briancode.dev/images/home/bc.png",
+  logo: "https://briancode.dev/images/home/bc.png",
+  "sameAs": [
+    "https://github.com/chinguyen-brian",
+    "https://linkedin.com/in/NguyenBrianCode",
+    "https://x.com/BrianCodeDev"
+  ],
   worksFor: {
     "@type": "Organization",
     name: "Self-Employed",
@@ -64,6 +51,33 @@ const jsonld = {
   },
 };
 
+export const metadata: Metadata = {
+  title: "Portfolio - Web Developer | Brian Code",
+  description:
+    "Portfolio of a web developer showcasing projects, skills, and expertise in React, Node.js, and modern web technologies.",
+  icons: {
+    icon: '/favicon.ico',
+  },
+  openGraph: {
+    url: "https://briancode.dev",
+    title: "Portfolio - Web Developer | Brian Code",
+    siteName: 'BrianCode',
+    description:
+      "Portfolio of a web developer showcasing projects, skills, and expertise in React, Node.js, and modern web technologies.",
+    images: [
+      {
+        url: 'https://briancode.dev/images/home/bc.png',
+        width: 700,
+        height: 450,
+        alt: 'BrianCode',
+      },
+    ],
+    type:'website',
+  },
+};
+
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,12 +85,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={baloo.variable}>
-      <Head>
+      <head>
         <script
           type="application/ld+json"
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonld) }}
         />
-      </Head>
+      </head>
       <body >
         <LayoutProvider>
           {children}

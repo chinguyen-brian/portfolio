@@ -4,15 +4,23 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "How to Optimize API for a Web Project? - Brian Nguyen Blog",
+  title: "How to Optimize API for a Web Project | Brian Code",
   description:
     "Discover best practices for optimizing APIs in web projects, improving performance, reducing latency, and enhancing scalability.",
   openGraph: {
     url: "https://briancode.dev/blog/how-to-optimize-api-for-a-web-project",
-    title: "How to Optimize API for a Web Project? - Brian Nguyen Blog",
+    title: "How to Optimize API for a Web Project | Brian Code",
     description:
       "Discover best practices for optimizing APIs in web projects, improving performance, reducing latency, and enhancing scalability.",
-    images: "https://briancode.dev/images/blogs/api.jpg",
+    images: [
+      {
+        url: 'https://briancode.dev/images/blogs/api.jpg',
+        width: 1200,
+        height: 600,
+        alt: 'How to Optimize API for a Web Project',
+      },
+    ],
+    type:'website',
   },
 };
 
@@ -39,7 +47,7 @@ const Blog = () => {
         }}
       >
         <Typography variant="h3">
-          How to Optimize API for a Web Project?
+          How to Optimize API for a Web Project
         </Typography>
       </Box>
       <Image
@@ -47,7 +55,7 @@ const Blog = () => {
         width={1000}
         height={1000}
         style={{ width: "100%", height: "auto" }}
-        alt="How to Optimize API for a Web Project?"
+        alt="How to Optimize API for a Web Project"
         loading="lazy"
       />
 
